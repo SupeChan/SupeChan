@@ -4,11 +4,6 @@ import pygame as pg
 import win32api
 
 from config import *
-import ctypes
-
-# dpiのスケーリングを無効にする
-PROCESS_PER_MONITOR_DPI_AWARE = 2
-ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 
 
 class PGMouseListener:
@@ -24,14 +19,14 @@ class PGMouseListener:
         self.listener.stop()
 
     def on_click(self, x, y, button, is_pressed):
-        pos = (x, y)
+        pos = (x, y - HEIGHT_CAPTION)
         event_mouse = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_CLICK, pos=pos,
                                      button=button,
                                      is_pressed=is_pressed)
         pg.event.post(event_mouse)
 
     def on_scroll(self, x, y, dx, dy):
-        pos = (x, y)
+        pos = (x, y - HEIGHT_CAPTION)
         event_mouse = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_SCROLL, pos=pos, dy=dy)
         pg.event.post(event_mouse)
 
@@ -48,11 +43,13 @@ class PGKeyboardListener:
         self.listener.stop()
 
     def on_press(self, key):
-        event_key = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_KEY, key=key, is_pressed=True)
+        event_key = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_KEYBOARD, key=key,
+                                   is_pressed=True)
         pg.event.post(event_key)
 
     def on_release(self, key):
-        event_key = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_KEY, key=key, is_pressed=False)
+        event_key = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_KEYBOARD, key=key,
+                                   is_pressed=False)
         pg.event.post(event_key)
 
 
