@@ -103,7 +103,7 @@ class ActionManager:
     def __init__(self, rect, rect_no_entry, duration_image):
         self.mode = self.MODE_WALK
         self.rect = rect
-        self.rect_screen = pg.Rect(0, 0, *pg.display.get_window_size())
+        self.rect_screen = pg.Rect(0, HEIGHT_CAPTION, *SIZE_SCREEN)
         self.rect_no_entry = rect_no_entry
         self.duration_image = duration_image
 
@@ -191,7 +191,7 @@ class ActionManager:
 
     def drag_and_drop(self):
         pos_cursor = win32api.GetCursorPos()
-        pos_cursor = (pos_cursor[0], pos_cursor[1] - HEIGHT_CAPTION)
+        pos_cursor = (pos_cursor[0], pos_cursor[1])
         pos = [point_cursor - point_delta for point_cursor, point_delta in
                zip(pos_cursor, self.pos_delta)]
         self.rect.center = pos

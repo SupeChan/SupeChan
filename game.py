@@ -57,11 +57,11 @@ class SpecialGame:
     # pgディスプレイの初期化
     def init_display(self):
         pg.init()
-        self.rect_screen = pg.Rect(0, 0, *SIZE_SCREEN)
-        self.screen = pg.display.set_mode(SIZE_SCREEN, pg.NOFRAME)
-        self.background = pg.Surface(self.rect_screen.size)
+        self.rect_screen = pg.Rect(0, HEIGHT_CAPTION, *SIZE_SCREEN)
+        self.screen = pg.display.set_mode((WIDTH_WORKING, HEIGHT_WORKING), pg.NOFRAME)
+        self.background = pg.Surface(SIZE_WORKING)
         self.background.fill(COLOR_KEY_GAME)
-        self.screen.blit(self.background, self.rect_screen.topleft)
+        self.screen.blit(self.background, (0, 0))
         pg.display.update()
         icon = pg.image.load(PATH_ICON)
         pg.display.set_icon(icon)
@@ -84,7 +84,7 @@ class SpecialGame:
         swp_topmost = (win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
         win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, swp_topmost)
         # SetWindowPosを使っても自動的に画面中央に寄せられてしまうので位置を変更
-        win32gui.MoveWindow(hwnd, 0, HEIGHT_CAPTION, *self.rect_screen.size, True)
+        win32gui.MoveWindow(hwnd, 0, 0, *SIZE_WORKING, True)
 
         # 透過、入力不可の設定
         exstyle_extend = (win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) |
@@ -158,8 +158,11 @@ class SpecialGame:
 
     # デバッグ用にrectを可視化する
     def visualize_rect(self):
-        self.background.fill((186,125,207))
-        self.screen.blit(self.background,(0,0))
+        self.background.fill((186, 125, 207))
+        surface_screen = pg.Surface(self.rect_screen.size)
+        surface_screen.fill((150, 0, 150))
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(surface_screen, self.rect_screen.topleft)
         if self.rect_no_entry:
             sur_entry = pg.Surface(self.rect_no_entry.size)
             sur_entry.fill((0, 255, 255))

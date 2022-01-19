@@ -140,7 +140,7 @@ class IkuNoEntrySprite(pg.sprite.Sprite):
 
     def set_image_before(self):
         pos_cursor = win32api.GetCursorPos()
-        pos_cursor = (pos_cursor[0], pos_cursor[1] - HEIGHT_CAPTION)
+        pos_cursor = (pos_cursor[0], pos_cursor[1])
         sp_ikuno = self.manager_animation.get_image_display()
         pos_topleft = (pos_cursor[0] - self.SIGHT_LENGTH,
                        pos_cursor[1] - self.SIGHT_LENGTH)
@@ -155,7 +155,7 @@ class IkuNoEntrySprite(pg.sprite.Sprite):
 
     def set_image_after(self):
         pos_cursor = win32api.GetCursorPos()
-        pos_cursor = (pos_cursor[0], pos_cursor[1] - HEIGHT_CAPTION)
+        pos_cursor = (pos_cursor[0], pos_cursor[1])
         sp_ikuno = self.manager_animation.get_image_display()
         self.resize_rect(pos_cursor)
         width_rect, height_rect = self.rect.size

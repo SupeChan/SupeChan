@@ -19,14 +19,14 @@ class PGMouseListener:
         self.listener.stop()
 
     def on_click(self, x, y, button, is_pressed):
-        pos = (x, y - HEIGHT_CAPTION)
+        pos = (x, y)
         event_mouse = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_CLICK, pos=pos,
                                      button=button,
                                      is_pressed=is_pressed)
         pg.event.post(event_mouse)
 
     def on_scroll(self, x, y, dx, dy):
-        pos = (x, y - HEIGHT_CAPTION)
+        pos = (x, y)
         event_mouse = pg.event.Event(pg.USEREVENT, type_user=TYPE_USER_SCROLL, pos=pos, dy=dy)
         pg.event.post(event_mouse)
 
